@@ -32,6 +32,20 @@ public static class MockViewModel
         }
     }
 
+    public static SaveViewModel SaveInstance { get; } = new(
+        new[] { new SaveGameData() {
+            playerData = new PlayerData()
+            {
+                maxHealth = 10,
+                // 128h 32m 5s
+                playTime = 462725f,
+                completionPercent = 100,
+                maxMP = 99,
+                geo = 56
+            }
+        } }
+    );
+
     public class MockSource : IModSource
     {
         public ModState ApiInstall { get; } = new NotInstalledState();

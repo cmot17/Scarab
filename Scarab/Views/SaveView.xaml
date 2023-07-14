@@ -1,0 +1,83 @@
+<views:View x:TypeArguments="viewModels:AboutViewModel" xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:views="clr-namespace:Scarab.Views"
+            xmlns:system="clr-namespace:System;assembly=System.Runtime"
+            xmlns:mock="clr-namespace:Scarab.Mock"
+            xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+            xmlns:models="clr-namespace:Scarab.Models"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+            x:DataType="viewModels:SaveViewModel"
+            x:Class="Scarab.Views.SaveView"
+            d:DataContext="{x:Static mock:MockViewModel.SaveInstance}">
+    <StackPanel Margin="10">
+        <DockPanel Margin="10 0 10 0">
+            <ToggleButton 
+                DockPanel.Dock="Left" 
+                HorizontalAlignment="Left"
+                Classes="Primary">
+                Activate
+            </ToggleButton>
+            <ToggleButton
+                Theme="{StaticResource SolidButton}"
+                Classes="Secondary"
+                DockPanel.Dock="Right"
+                HorizontalAlignment="Right"
+                >
+                Backup
+            </ToggleButton>
+        </DockPanel>
+        <ListBox ItemsSource="{Binding Saves}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="models:SaveGameData">
+                    <Border Theme="{StaticResource CardBorder}">
+                        <Expander HorizontalContentAlignment="Stretch">
+                            <Expander.Header>
+                                <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*">
+                                    <Grid.Styles>
+                                        <Style Selector=":is(Control)">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </Grid.Styles>
+
+                                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="10" Orientation="Horizontal"
+                                                Spacing="10">
+                                        <Image Height="20" Width="20" Source="avares://Scarab/Assets/Mask.png" />
+                                        <TextBlock Text="{Binding PlayerData.maxHealth, StringFormat='{}'}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="10" Orientation="Horizontal"
+                                                Spacing="10">
+                                        <Image Height="20" Width="20" Source="avares://Scarab/Assets/Geo.png" />
+                                        <TextBlock Text="{Binding PlayerData.geo, StringFormat='{}'}" />
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        Margin="0 0 10 0"
+                                        HorizontalAlignment="Right"
+                                        Grid.Column="2"
+                                        Grid.Row="0"
+                                        Text="{Binding PlayerData.completionPercent, StringFormat='{}{0}%'}" />
+                                    <TextBlock
+                                        Margin="0 0 10 0"
+                                        HorizontalAlignment="Right"
+                                        Grid.Column="2"
+                                        Grid.Row="1"
+                                        Text="{Binding PlayerData.PlaytimeHHMM}" />
+                                </Grid>
+                            </Expander.Header>
+                            <DockPanel HorizontalAlignment="Stretch">
+                                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Spacing="20"
+                                            HorizontalAlignment="Left">
+                                    <Button>Clone to profile</Button>
+                                    <Button>Move to profile</Button>
+                                </StackPanel>
+                                <Button DockPanel.Dock="Right" Theme="{StaticResource SolidButton}" Classes="Danger" HorizontalAlignment="Right">Delete</Button>
+                            </DockPanel>
+                        </Expander>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+</views:View>
